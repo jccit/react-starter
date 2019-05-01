@@ -1,17 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const rootPath = path.resolve(__dirname, '..');
+
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-    entry: './src/App.js',
+    entry: path.resolve(rootPath, 'src/client/main.js'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(rootPath, 'dist/client'),
         filename: 'app.js'
     },
     resolve: {
         alias: {
-            components: path.resolve(__dirname, 'src/components'),
-            containers: path.resolve(__dirname, 'src/containers')
+            components: path.resolve(rootPath, 'src/shared/components'),
+            containers: path.resolve(rootPath, 'src/shared/containers')
         }
     },
     module: {
@@ -30,7 +32,7 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, 'static'),
+        contentBase: path.resolve(rootPath, 'static'),
         compress: true,
         inline: true,
         hot: true,

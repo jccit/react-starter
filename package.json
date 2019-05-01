@@ -6,11 +6,13 @@
   "author": "Josef Citrine",
   "license": "MIT",
   "scripts": {
-    "build": "webpack -p",
-    "dev": "webpack-dev-server"
+    "build": "NODE_ENV=production node scripts/build.js",
+    "start": "node dist/server/server.js",
+    "dev": "webpack-dev-server --config config/webpack.config.client.js"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
+    "express": "^4.16.4",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
