@@ -36,6 +36,10 @@ module.exports = {
         compress: true,
         inline: true,
         hot: true,
-        port: 9000
+        port: 9000,
+
+        // support for tunneling
+        host: '0.0.0.0',
+        disableHostCheck: true
     }
 }

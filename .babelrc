@@ -8,5 +8,9 @@
             }
         ]
     ],
-    "plugins": ["@babel/plugin-transform-react-jsx", "emotion"]
+    "plugins": [
+        "@babel/plugin-transform-react-jsx",
+        "emotion",
+        "react-hot-loader/babel"
+    ]
 }
