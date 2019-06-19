@@ -2,6 +2,7 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HeadProvider } from 'react-head';
+import { StaticRouter } from 'react-router';
 import App from '../shared/App';
 
 const server = express();
@@ -20,20 +21,31 @@ const template = (head, body) => `
     </html>
 `;
 
-server.get('/', (req, res) => {
+server.use('/assets', express.static('dist/client'));
+
+server.get('*', (req, res) => {
     const headTags = [];
+    const routerContext = {};
 
     const body = renderToString(
         <HeadProvider headTags={headTags}>
-            <App />
+            <StaticRouter
+                location={req.url}
+                context={routerContext}
+            >
+                <App />
+            </StaticRouter>
         </HeadProvider>
     );
+
+    if (routerContext.url) {
+        // if <Redirect> used, return a redirect
+        return res.redirect(routerContext.url);
+    }
 
     const head = renderToString(headTags);
 
     res.send(template(head, body));
 });
-
-server.use('/assets', express.static('dist/client'));
 
 server.listen(3000, () => console.log('React server listening on port 3000'));

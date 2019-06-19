@@ -20,7 +20,7 @@ module.exports = {
         }
     },
     optimization: {
-        namedModules: false,
+        namedModules: true,
         removeAvailableModules: true,
         splitChunks: {
             cacheGroups: {
