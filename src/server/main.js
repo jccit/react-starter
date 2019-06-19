@@ -1,35 +1,37 @@
 import express from 'express';
 import React from 'react';
-import { renderToNodeStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
+import { HeadProvider } from 'react-head';
 import App from '../shared/App';
 
 const server = express();
 
-const htmlTop = `
+const template = (head, body) => `
     <!DOCTYPE html>
     <html>
         <head>
-            <meta charset="UTF-8">
-            <title>Hello</title>
-            <script defer src="/assets/app.js"></script>
+            ${head}
+            <script defer src="/assets/js/vendor.js"></script>
+            <script defer src="/assets/js/main.js"></script>
         </head>
         <body>
-            <main id="app">`;
-
-const htmlBottom = `</main>
+            <main id="app">${body}</main>
         </body>
     </html>
 `;
 
 server.get('/', (req, res) => {
-    res.write(htmlTop);
+    const headTags = [];
 
-    const stream = renderToNodeStream(<App />);
-    stream.pipe(res, { end: false });
-    stream.on('end', () => {
-        res.write(htmlBottom);
-        res.end();
-    })
+    const body = renderToString(
+        <HeadProvider headTags={headTags}>
+            <App />
+        </HeadProvider>
+    );
+
+    const head = renderToString(headTags);
+
+    res.send(template(head, body));
 });
 
 server.use('/assets', express.static('dist/client'));
