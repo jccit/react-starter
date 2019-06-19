@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import PropTypes from 'prop-types';
+import { SFC } from 'react';
+
+interface TitleProps {
+    text: string
+}
 
 // Example component with style
-const Title = ({text}) => {
+const Title: SFC<TitleProps> = props => {
     const headingStyle = css`
         font-family: sans-serif;
         font-size: 24px;
     `;
-    return <h1 css={headingStyle}>{ text }</h1>
-};
-
-Title.propTypes = {
-    text: PropTypes.string
+    return <h1 css={headingStyle}>{ props.text }</h1>
 };
 
 export default Title;

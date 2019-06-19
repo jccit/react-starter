@@ -1,5 +1,5 @@
 import 'react-hot-loader';
-import React from 'react';
+import * as React from 'react';
 import { hydrate } from 'react-dom';
 import { HeadProvider } from 'react-head';
 import { BrowserRouter as Router } from 'react-router-dom';

@@ -7,7 +7,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-    entry: path.resolve(rootPath, 'src/client/main.js'),
+    entry: path.resolve(rootPath, 'src/client/main.tsx'),
     output: {
         path: path.resolve(rootPath, 'dist/client'),
         filename: 'js/[name].js',
@@ -17,7 +17,8 @@ module.exports = {
         alias: {
             components: path.resolve(rootPath, 'src/shared/components'),
             containers: path.resolve(rootPath, 'src/shared/containers')
-        }
+        },
+        extensions: ['.ts', '.tsx', '.js']
     },
     optimization: {
         namedModules: true,
@@ -42,7 +43,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }

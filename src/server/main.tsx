@@ -1,13 +1,13 @@
 import express from 'express';
-import React from 'react';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { HeadProvider } from 'react-head';
-import { StaticRouter } from 'react-router';
+import { StaticRouter, StaticRouterContext } from 'react-router';
 import App from '../shared/App';
 
 const server = express();
 
-const template = (head, body) => `
+const template = (head: string, body: string) => `
     <!DOCTYPE html>
     <html>
         <head>
@@ -24,8 +24,10 @@ const template = (head, body) => `
 server.use('/assets', express.static('dist/client'));
 
 server.get('*', (req, res) => {
-    const headTags = [];
-    const routerContext = {};
+    // should be React.ReactElement[] but the React DOM types
+    // are messed up, renderToString will not accept an array
+    const headTags: any = [];
+    const routerContext: StaticRouterContext = {};
 
     const body = renderToString(
         <HeadProvider headTags={headTags}>

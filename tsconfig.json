@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "moduleResolution": "node",
+        "allowJs": true,
+        "noEmit": true,
+        "strict": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "baseUrl": "./src/",
+        "paths": {
+            "components/*": ["shared/components/*"],
+            "containers/*": ["shared/containers/*"],
+        }
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
